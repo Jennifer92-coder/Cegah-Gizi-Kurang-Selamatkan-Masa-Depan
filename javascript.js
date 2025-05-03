@@ -7,6 +7,10 @@ const copyResult = document.getElementById('copyResult');
 const shareWhatsapp = document.getElementById('shareWhatsapp');
 const shareTelegram = document.getElementById('shareTelegram');
 const downloadPoster = document.getElementById('downloadPoster');
+const downloadProgress = document.getElementById('downloadProgress');
+const progressBar = document.getElementById('progressBar');
+const progressText = document.getElementById('progressText');
+const toast = document.getElementById('toast');
 
 // Website URL
 const websiteUrl = window.location.href;
@@ -16,10 +20,12 @@ shareButton.addEventListener('click', () => {
   shareModal.style.display = 'flex';
 });
 
-// Close modal
 closeModal.addEventListener('click', () => {
   shareModal.style.display = 'none';
   copyResult.style.display = 'none';
+  downloadProgress.style.display = 'none';
+  progressBar.style.width = '0%';
+  progressText.textContent = '0%';
 });
 
 // Close modal when clicking outside
@@ -27,44 +33,38 @@ window.addEventListener('click', (e) => {
   if (e.target === shareModal) {
     shareModal.style.display = 'none';
     copyResult.style.display = 'none';
+    downloadProgress.style.display = 'none';
+    progressBar.style.width = '0%';
+    progressText.textContent = '0%';
   }
 });
 
 // Copy link functionality
 copyLink.addEventListener('click', (e) => {
   e.preventDefault();
-   
-  // Alternate method for copying text to clipboard
+
   try {
-    // Create a temporary input element
     const tempInput = document.createElement('input');
     tempInput.value = websiteUrl;
     document.body.appendChild(tempInput);
-    
-    // Select the text
     tempInput.select();
     tempInput.setSelectionRange(0, 99999); // For mobile devices
-    
-    // Copy the text
     document.execCommand('copy');
-    
-    // Remove the temporary element
     document.body.removeChild(tempInput);
-    
+
     copyResult.textContent = 'Link berhasil disalin!';
     copyResult.className = 'copy-result copy-success';
     copyResult.style.display = 'block';
-    
+
     setTimeout(() => {
       copyResult.style.display = 'none';
     }, 3000);
-   } catch (err) {
-    // Fallback to the original method if the alternative fails
-    navigator.clipboard.writeText(websiteUrl).then(() => {
+  } catch (err) {
+navigator.clipboard.writeText(websiteUrl).then(() => {
       copyResult.textContent = 'Link berhasil disalin!';
       copyResult.className = 'copy-result copy-success';
       copyResult.style.display = 'block';
-      
+
       setTimeout(() => {
         copyResult.style.display = 'none';
       }, 3000);
@@ -87,8 +87,40 @@ shareWhatsapp.addEventListener('click', (e) => {
 shareTelegram.addEventListener('click', (e) => {
   e.preventDefault();
   const text = encodeURIComponent('Baca artikel menarik tentang fortifikasi gizi: ');
-  window.open(`https://t.me/share/url?url=${encodeURIComponent(websiteUrl)}&text=${text}`, '_blank');
+window.open(`https://t.me/share/url?url=${encodeURIComponent(websiteUrl)}&text=${text}`, '_blank');
 });
+
+// Show toast notification
+function showToast(title, description) {
+  const toastElement = document.getElementById('toast');
+  const toastTitle = toastElement.querySelector('.toast-title');
+  const toastDescription = toastElement.querySelector('.toast-description');
+  
+  toastTitle.textContent = title;
+  toastDescription.textContent = description;
+
+toastElement.classList.add('show');
+  
+  setTimeout(() => {
+    toastElement.classList.remove('show');
+  }, 3000);
+}
+
+// Simulate download progress
+function simulateDownloadProgress(callback) {
+  downloadProgress.style.display = 'block'; // Show progress container
+  let progress = 0;
+  const interval = setInterval(() => {
+    progress += Math.random() * 15; // Increment progress randomly
+    if (progress >= 100) {
+      progress = 100;
+      clearInterval(interval);
+      setTimeout(callback, 500); // Call the callback after a short delay
+    }
+    progressBar.style.width = progress + '%'; // Update progress bar width
+    progressText.textContent = Math.round(progress) + '%'; // Update progress text
+  }, 200);
+}
 
 // Download poster
 downloadPoster.addEventListener('click', (e) => {
@@ -99,29 +131,15 @@ downloadPoster.addEventListener('click', (e) => {
   copyResult.className = 'copy-result copy-success';
   copyResult.style.display = 'block';
   
-  // Use html2canvas to create an image of the page
-  html2canvas(document.body, {
-    allowTaint: true,
-    useCORS: true,
-    scrollX: 0,
-    scrollY: 0,
-    windowWidth: document.documentElement.offsetWidth,
-    windowHeight: document.documentElement.offsetHeight,
-    scale: 1
-  }).then(canvas => {
-    // Create download link
-    const link = document.createElement('a');
-    link.download = 'gizi-fortifikasi-poster.png';
-    link.href = canvas.toDataURL('image/png');
-    link.click();
-    
-    copyResult.textContent = 'Poster berhasil diunduh!';
-    
-    setTimeout(() => {
-      copyResult.style.display = 'none';
-    }, 3000);
-  }).catch(err => {
-    copyResult.textContent = 'Gagal mengunduh poster: ' + err;
-    copyResult.className = 'copy-result copy-error';
-  });
+  // Create download link for the image
+  const link = document.createElement('a');
+  link.download = 'gizi-fortifikasi-poster.png';
+  link.href = 'images/poster.png'; // Path ke gambar yang ingin diunduh
+  link.click();
+  
+  copyResult.textContent = 'Poster berhasil diunduh!';
+  
+  setTimeout(() => {
+    copyResult.style.display = 'none';
+  }, 3000);
 });
