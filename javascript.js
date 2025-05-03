@@ -106,40 +106,117 @@ toastElement.classList.add('show');
   }, 3000);
 }
 
-// Simulate download progress
+// Simulate progress for the download
 function simulateDownloadProgress(callback) {
-  downloadProgress.style.display = 'block'; // Show progress container
+  // Hide any previous messages
+  copyResult.style.display = 'none';
+  
+  // Show the download progress container
+  downloadProgress.style.display = 'block';
+  
   let progress = 0;
   const interval = setInterval(() => {
-    progress += Math.random() * 15; // Increment progress randomly
+    progress += Math.random() * 15;
     if (progress >= 100) {
       progress = 100;
       clearInterval(interval);
-      setTimeout(callback, 500); // Call the callback after a short delay
+      setTimeout(() => {
+        callback();
+      }, 500);
     }
-    progressBar.style.width = progress + '%'; // Update progress bar width
-    progressText.textContent = Math.round(progress) + '%'; // Update progress text
+    
+    progressBar.style.width = progress + '%';
+    progressText.textContent = Math.round(progress) + '%';
   }, 200);
 }
 
-// Download poster
+// Unduh gambar poster yang sudah tersedia
 downloadPoster.addEventListener('click', (e) => {
   e.preventDefault();
-  
-  // Show loading status
-  copyResult.textContent = 'Sedang membuat poster...';
-  copyResult.className = 'copy-result copy-success';
-  copyResult.style.display = 'block';
-  
-  // Create download link for the image
-  const link = document.createElement('a');
-  link.download = 'gizi-fortifikasi-poster.png';
-  link.href = 'images/poster.png'; // Path ke gambar yang ingin diunduh
-  link.click();
-  
-  copyResult.textContent = 'Poster berhasil diunduh!';
-  
-  setTimeout(() => {
-    copyResult.style.display = 'none';
-  }, 3000);
+ simulateDownloadProgress(() => {
+ // Log untuk debugging
+  console.log('Download poster clicked');
+    // When the progress is complete, download the poster
+    const link = document.createElement('a');
+    link.href = 'images/poster.png';
+    link.download = 'poster-fortifikasi-gizi.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    // Show success message
+    copyResult.textContent = 'Poster berhasil diunduh!';
+    copyResult.className = 'copy-result copy-success';
+    copyResult.style.display = 'block';
+    
+ // Show toast notification
+    showToast('Poster berhasil diunduh!', 'File telah tersimpan di perangkat Anda');
+
+   try {
+      console.log('Download started...');
+      
+      // Metode 1: Menggunakan anchor element dengan download attribute
+      const link = document.createElement('a');
+      link.href = '/images/poster.png'; // Path dimulai dari root
+      link.download = 'poster-fortifikasi-gizi.png';
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      
+      // Delay sebentar sebelum menghapus elemen
+      setTimeout(() => {
+        document.body.removeChild(link);
+        console.log('Link element removed');
+      }, 100);
+      
+      // Metode 2: Sebagai fallback, coba buka gambar di tab baru
+      setTimeout(() => {
+        window.open('images/poster.png', '_blank');
+        console.log('Fallback: opening image in new tab');
+      }, 200);
+      
+      // Show success message
+      copyResult.textContent = 'Poster berhasil diunduh!';
+      copyResult.className = 'copy-result copy-success';
+      copyResult.style.display = 'block';
+      
+      // Show toast notification
+      showToast('Poster berhasil diunduh!', 'File telah tersimpan di perangkat Anda');
+      
+      // Log sukses
+      console.log('Download success reported to user');
+    } catch (error) {
+      console.error('Download error:', error);
+      copyResult.textContent = 'Gagal mengunduh poster: ' + error;
+      copyResult.className = 'copy-result copy-error';
+      copyResult.style.display = 'block';
+    }
+    
+    // Hide progress bar after a delay
+    setTimeout(() => {
+      downloadProgress.style.display = 'none';
+    }, 2000);
+    
+    // Hide success message after a longer delay
+    setTimeout(() => {
+      copyResult.style.display = 'none';
+    }, 3000);
+  });
+});
+
+// Tambahkan event listener untuk mendeteksi apakah poster sudah dimuat
+window.addEventListener('load', () => {
+  const posterPreview = document.getElementById('posterPreview');
+  if (posterPreview) {
+    posterPreview.addEventListener('error', () => {
+      console.error('Error loading poster preview image');
+      posterPreview.src = 'https://via.placeholder.com/300x200?text=Poster+Preview+Not+Found';
+    });
+    
+    // Coba preload gambar poster
+    const img = new Image();
+    img.src = '/images/poster.png';
+    img.onload = () => console.log('Poster image preloaded successfully');
+    img.onerror = () => console.error('Failed to preload poster image');
+  }
 });
