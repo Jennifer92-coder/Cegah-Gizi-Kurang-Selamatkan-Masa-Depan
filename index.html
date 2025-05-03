@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -146,6 +145,14 @@
     </div>
   </footer>
 
+ <!-- Toast Notification -->
+  <div id="toast" class="toast">
+    <div class="toast-content">
+      <div class="toast-title">Poster berhasil diunduh!</div>
+      <div class="toast-description">File telah tersimpan di perangkat Anda</div>
+    </div>
+  </div>
+
   <!-- Modal Share -->
   <div class="modal-overlay" id="shareModal">
     <div class="modal-container">
@@ -166,18 +173,30 @@
           <i class="fas fa-link"></i>
           Salin Link
         </a>
-        <a href="#" class="share-btn download-poster" id="downloadPoster">
+         <a href="#" class="share-btn download-poster" id="downloadPoster">
           <i class="fas fa-download"></i>
           Unduh Poster
         </a>
       </div>
       
       <div class="copy-result" id="copyResult"></div>
+      
+      <!-- Download Progress Container -->
+      <div class="download-progress" id="downloadProgress" style="display:none;">
+        <div class="poster-preview">
+          <img src="images/poster.png" alt="Poster Preview" id="posterPreview">
+        </div>
+        <div class="progress-container">
+          <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-text" id="progressText">0%</div>
+      </div>
     </div>
-  </div
+  </div>
 
   <!-- Script tags -->
   <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
   <script src="javascript.js"></script>
+ <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
 </body>
 </html>
