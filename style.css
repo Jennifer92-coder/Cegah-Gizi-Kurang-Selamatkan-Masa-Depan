@@ -1,4 +1,3 @@
-
 :root {
   --primary-color: #2a7a2a;
   --secondary-color: #d9534f;
@@ -177,6 +176,41 @@ h3 + img:hover {
   transform: scale(1.05);
 }
 
+/* Toast Notification Styling */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: white;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  padding: 12px 20px;
+  min-width: 250px;
+  max-width: 350px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.3s ease;
+  z-index: 9999;
+  pointer-events: none;
+  border-left: 4px solid var(--primary-color);
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast-title {
+  font-weight: 600;
+  color: var(--primary-color);
+  margin-bottom: 5px;
+}
+
+.toast-description {
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+
 /* Modal styling */
 .modal-overlay {
   display: none;
@@ -304,6 +338,47 @@ h3 + img:hover {
 .copy-error {
   background-color: rgba(217, 83, 79, 0.2);
   color: var(--secondary-color);
+}
+
+/* Download Progress Styling */
+.download-progress {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.poster-preview {
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.poster-preview img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.progress-container {
+  height: 20px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  margin: 10px 0;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--primary-color), #3c8c3c);
+  transition: width 0.3s ease;
+  border-radius: 10px;
+}
+
+.progress-text {
+  font-weight: bold;
+  color: var(--primary-color);
 }
 
 /* Responsive styling */
