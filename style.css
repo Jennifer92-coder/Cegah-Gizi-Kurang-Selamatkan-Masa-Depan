@@ -145,10 +145,19 @@ h3 {
   font-size: 1.2rem;
 }
 
-p, li {
+p {
   font-size: 1rem;
   line-height: 1.6;
   color: #444;
+}
+
+li {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #444;
+  list-style-type: none;
+  padding: 0:
+  test-aligned: center;
 }
 
 /* Styling untuk teks checkmark */
