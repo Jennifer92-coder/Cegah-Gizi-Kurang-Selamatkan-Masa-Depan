@@ -1,0 +1,309 @@
+
+:root {
+  --primary-color: #2a7a2a;
+  --secondary-color: #d9534f;
+  --accent-color: #e1f5e1;
+  --text-dark: #333;
+  --text-light: #666;
+  --bg-light: #f9f9f9;
+  --white: #ffffff;
+}
+
+body {
+  font-family: 'Poppins', Arial, sans-serif;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  color: var(--text-dark);
+  background-color: var(--bg-light);
+  transition: all 0.3s ease;
+}
+
+h1, h2, h3 {
+  color: var(--primary-color);
+}
+
+/* Judul utama dengan gradient */
+h1 {
+  font-family: 'Pacifico', cursive;
+  font-weight: normal;
+  font-size: 3.2rem;
+  text-align: center;
+  margin-bottom: 0.2rem;
+  background: linear-gradient(90deg, #2a7a2a, #3a9a3a);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Info pembuat di bawah judul */
+.author {
+  text-align: center;
+  font-style: italic;
+  color: var(--text-light);
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+  user-select: none;
+}
+
+ul {
+  margin-left: 1.5rem;
+}
+
+.highlight {
+  color: var(--secondary-color);
+  font-weight: bold;
+  padding: 5px 10px;
+  background-color: rgba(217, 83, 79, 0.1);
+  border-radius: 5px;
+}
+
+.tip {
+  background: linear-gradient(135deg, #e1f5e1 0%, #c5e8c5 100%);
+  border-left: 5px solid var(--primary-color);
+  margin: 1rem 0;
+  padding: 0.8rem 1.2rem;
+  font-style: italic;
+  border-radius: 0 8px 8px 0;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+}
+
+footer {
+  font-size: 0.85rem;
+  color: var(--text-light);
+  text-align: center;
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid #ddd;
+}
+
+/* Styling untuk logo di footer */
+.footer-logos {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  align-items: center;
+}
+
+.footer-logos img {
+  height: 50px;
+  object-fit: contain;
+  filter: grayscale(30%);
+  transition: 0.3s all ease;
+}
+
+.footer-logos img:hover {
+  filter: grayscale(0%);
+  transform: scale(1.05);
+}
+
+.call-to-action {
+  background: linear-gradient(135deg, #2a7a2a 0%, #3c8c3c 100%);
+  color: white;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border-radius: 10px;
+  text-align: left;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.call-to-action p {
+  margin: 0.5rem 0;
+  font-weight: bold;
+}
+
+.call-to-action span {
+  display: inline-block;
+  margin-top: 1rem;
+  background: linear-gradient(135deg, #d9534f 0%, #c9302c 100%);
+  padding: 0.7rem 1.5rem;
+  border-radius: 30px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.3s;
+  font-weight: 600;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+}
+
+.call-to-action span:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Styling untuk konten artikel */
+h2 {
+  border-bottom: 2px solid rgba(42, 122, 42, 0.2);
+  padding-bottom: 8px;
+  margin-top: 2rem;
+}
+
+h3 {
+  margin-top: 1.5rem;
+  font-size: 1.2rem;
+}
+
+p, li {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #444;
+}
+
+/* Styling untuk teks checkmark */
+ul p {
+  margin-bottom: 0.5rem;
+}
+
+/* Styling untuk gambar produk */
+h3 + img {
+  display: block;
+  margin: 1rem auto;
+  filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+  transition: all 0.3s;
+}
+
+h3 + img:hover {
+  transform: scale(1.05);
+}
+
+/* Modal styling */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.7);
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px);
+}
+
+.modal-container {
+  background-color: white;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+  padding: 2rem;
+  box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+  position: relative;
+  animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #888;
+  transition: all 0.2s;
+}
+
+.modal-close:hover {
+  color: var(--secondary-color);
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.modal-subtitle {
+  font-size: 1rem;
+  color: var(--text-light);
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.share-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.share-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  border-radius: 8px;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+
+.share-btn:hover {
+  transform: translateY(-3px);
+}
+
+.share-btn i {
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+}
+
+.whatsapp {
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+}
+
+.telegram {
+  background: linear-gradient(135deg, #0088cc 0%, #0063a9 100%);
+}
+
+.copy-link {
+  background: linear-gradient(135deg, #6c757d 0%, #495057 100%);
+}
+
+.download-poster {
+  background: linear-gradient(135deg, #2a7a2a 0%, #1e5b1e 100%);
+}
+
+.copy-result {
+  text-align: center;
+  padding: 8px;
+  margin-top: 1rem;
+  border-radius: 5px;
+  font-weight: 500;
+  display: none;
+}
+
+.copy-success {
+  background-color: rgba(42, 122, 42, 0.2);
+  color: var(--primary-color);
+}
+
+.copy-error {
+  background-color: rgba(217, 83, 79, 0.2);
+  color: var(--secondary-color);
+}
+
+/* Responsive styling */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+  
+  .share-options {
+    grid-template-columns: 1fr;
+  }
+}
